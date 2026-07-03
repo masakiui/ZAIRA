@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>在庫管理 | ZAIRA</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/inventory.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div>
+
+        <h1 class="logo">ZAIRA</h1>
+
+        <p class="tagline">
+            あなたの会社に、もう一人。
+        </p>
+
+    </div>
+
+    <nav>
+
+        <a href="../dashboard.html">ダッシュボード</a>
+
+        <a href="products.html">商品管理</a>
+
+        <a href="inventory.html">在庫管理</a>
+
+        <a href="sales.html">売上管理</a>
+
+        <a href="accounting.html">会計</a>
+
+        <a href="analytics.html">分析</a>
+
+        <a href="ai.html">ZAIRA AI</a>
+
+    </nav>
+
+</header>
+
+<main class="container">
+
+    <!-- 在庫概要 -->
+
+    <div class="grid grid-4">
+
+        <div class="card summary-card">
+
+            <h3>登録商品</h3>
+
+            <p id="totalProducts">0</p>
+
+        </div>
+
+        <div class="card summary-card">
+
+            <h3>総在庫数</h3>
+
+            <p id="totalStock">0</p>
+
+        </div>
+
+        <div class="card summary-card warning">
+
+            <h3>在庫不足</h3>
+
+            <p id="lowStockCount">0</p>
+
+        </div>
+
+        <div class="card summary-card success">
+
+            <h3>発注推奨</h3>
+
+            <p id="orderRecommend">0</p>
+
+        </div>
+
+    </div>
+
+    <!-- 検索 -->
+
+    <div class="card">
+
+        <h2 class="card-title">
+
+            商品検索
+
+        </h2>
+
+        <input
+            type="text"
+            id="searchProduct"
+            placeholder="商品名で検索">
+
+    </div>
+
+    <!-- 在庫一覧 -->
+
+    <div class="card">
+
+        <h2 class="card-title">
+
+            在庫一覧
+
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>商品名</th>
+
+                    <th>前回発注数</th>
+
+                    <th>売れた個数</th>
+
+                    <th>現在在庫</th>
+
+                    <th>最低在庫</th>
+
+                    <th>状態</th>
+
+                    <th>AIコメント</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="inventoryTable">
+
+                <!-- JavaScriptで表示 -->
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+<footer>
+
+    © ZAIRA
+
+</footer>
+
+<script src="../js/app.js"></script>
+<script src="../js/inventory.js"></script>
+
+</body>
+
+</html>
