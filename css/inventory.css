@@ -1,0 +1,234 @@
+/* ==========================================
+   ZAIRA
+   在庫管理専用CSS
+========================================== */
+
+/* ---------- サマリーカード ---------- */
+
+.summary-card{
+
+    text-align:center;
+
+    transition:.25s;
+
+}
+
+.summary-card:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.summary-card h3{
+
+    font-size:16px;
+
+    color:var(--sub-text);
+
+    margin-bottom:10px;
+
+}
+
+.summary-card p{
+
+    font-size:34px;
+
+    font-weight:bold;
+
+}
+
+/* ---------- 検索 ---------- */
+
+#searchProduct{
+
+    font-size:16px;
+
+}
+
+/* ---------- テーブル ---------- */
+
+table{
+
+    margin-top:20px;
+
+}
+
+table th{
+
+    white-space:nowrap;
+
+}
+
+table td{
+
+    text-align:center;
+
+    vertical-align:middle;
+
+}
+
+/* ---------- 状態 ---------- */
+
+.status-good{
+
+    color:var(--success);
+
+    font-weight:bold;
+
+}
+
+.status-warning{
+
+    color:var(--warning);
+
+    font-weight:bold;
+
+}
+
+.status-danger{
+
+    color:var(--danger);
+
+    font-weight:bold;
+
+}
+
+/* ---------- AIコメント ---------- */
+
+.ai-comment{
+
+    text-align:left;
+
+    font-size:14px;
+
+    color:#555;
+
+    max-width:280px;
+
+    line-height:1.5;
+
+}
+
+/* ---------- 行ホバー ---------- */
+
+tbody tr{
+
+    transition:.2s;
+
+}
+
+tbody tr:hover{
+
+    background:#eef5ff;
+
+}
+
+/* ---------- 在庫数 ---------- */
+
+.stock-number{
+
+    font-weight:bold;
+
+    font-size:18px;
+
+}
+
+/* ---------- 発注推奨 ---------- */
+
+.order-button{
+
+    background:var(--warning);
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:8px 14px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.order-button:hover{
+
+    opacity:.9;
+
+}
+
+/* ---------- 在庫不足行 ---------- */
+
+.low-stock{
+
+    background:#fff4f4;
+
+}
+
+/* ---------- 検索エリア ---------- */
+
+.search-box{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:center;
+
+}
+
+.search-box input{
+
+    margin:0;
+
+}
+
+/* ---------- フィルター（将来実装） ---------- */
+
+.filter-buttons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+.filter-buttons button{
+
+    min-width:120px;
+
+}
+
+/* ---------- レスポンシブ ---------- */
+
+@media (max-width:900px){
+
+    .summary-card p{
+
+        font-size:26px;
+
+    }
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+
+    }
+
+    .ai-comment{
+
+        min-width:220px;
+
+    }
+
+}
