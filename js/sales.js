@@ -1,9 +1,17 @@
 "use strict";
 
-let products = getProducts();
-let sales = getSales();
+/* ==========================================
+   初期データ（state経由）
+========================================== */
+
+let products = getState("products");
+let sales = getState("sales");
 
 const salesForm = document.getElementById("salesForm");
+
+/* ==========================================
+   初期化
+========================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -13,7 +21,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateSummary();
 
+    /* state監視（リアルタイム反映） */
+    subscribe("sales", (data) => {
+        sales = data;
+        renderSales();
+        updateSummary();
+    });
+
+    subscribe("products", (data) => {
+        products = data;
+        loadProducts();
+    });
+
 });
+
+/* ==========================================
+   商品ロード
+========================================== */
 
 function loadProducts(){
 
@@ -33,12 +57,15 @@ function loadProducts(){
 
 }
 
+/* ==========================================
+   売上登録
+========================================== */
+
 salesForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
 
     const productId = document.getElementById("productSelect").value;
-
     const qty = Number(document.getElementById("quantity").value);
 
     const product = products.find(p => p.id === productId);
@@ -53,9 +80,31 @@ salesForm.addEventListener("submit", (e) => {
 
     }
 
-    // 在庫更新
-    product.stock -= qty;
-    product.sold = (product.sold || 0) + qty;
+    /* ==========================================
+       在庫更新（state経由）
+    ========================================== */
+
+    const updatedProducts = products.map(p => {
+
+        if(p.id === productId){
+
+            return {
+                ...p,
+                stock: p.stock - qty,
+                sold: (p.sold || 0) + qty
+            };
+
+        }
+
+        return p;
+
+    });
+
+    setState("products", updatedProducts);
+
+    /* ==========================================
+       売上作成
+    ========================================== */
 
     const sale = {
 
@@ -70,17 +119,28 @@ salesForm.addEventListener("submit", (e) => {
 
     };
 
-    sales.push(sale);
+    const updatedSales = [...sales, sale];
 
-    saveProducts(products);
-    saveSales(sales);
+    setState("sales", updatedSales);
 
-    renderSales();
-    updateSummary();
+    /* ==========================================
+       イベント発火（AI連動）
+    ========================================== */
+
+    emit("SALE_CREATED", {
+        productId,
+        productName: product.name,
+        quantity: qty,
+        total: sale.total
+    });
 
     showMessage("売上登録完了");
 
 });
+
+/* ==========================================
+   表示
+========================================== */
 
 function renderSales(){
 
@@ -107,25 +167,19 @@ function renderSales(){
 
 }
 
+/* ==========================================
+   今日サマリー
+========================================== */
+
 function updateSummary(){
 
     const today = new Date().toISOString().slice(0,10);
 
-    let total = 0;
-    let count = 0;
+    const todaySales = sales.filter(s => s.date === today);
 
-    sales.forEach(s => {
-
-        if(s.date === today){
-
-            total += s.total;
-            count++;
-
-        }
-
-    });
+    const total = todaySales.reduce((sum, s) => sum + s.total, 0);
 
     document.getElementById("todaySales").textContent = yen(total);
-    document.getElementById("todayCount").textContent = count;
+    document.getElementById("todayCount").textContent = todaySales.length;
 
 }
