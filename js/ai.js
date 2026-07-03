@@ -288,3 +288,19 @@ async function getAIReport(){
     return data.result;
 
 }
+async function runAIAnalysis(){
+
+    const container = document.getElementById("aiContainer");
+
+    container.innerHTML = "分析中...";
+
+    const report = await getAIReport();
+
+    container.innerHTML = `
+        <div class="ai-box success">
+            <h3>ZAIRA 経営レポート</h3>
+            <pre style="white-space:pre-wrap;">${report}</pre>
+        </div>
+    `;
+
+}
