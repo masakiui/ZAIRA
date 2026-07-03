@@ -1,0 +1,153 @@
+/* ==========================================
+   ZAIRA
+   商品管理専用CSS
+========================================== */
+
+/* ---------- 商品登録フォーム ---------- */
+
+#productForm{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+}
+
+#productForm label{
+    display:flex;
+    flex-direction:column;
+    font-weight:600;
+    color:var(--text);
+}
+
+#productForm textarea{
+    resize:vertical;
+    min-height:100px;
+}
+
+/* メモは横幅いっぱい */
+#productForm label:last-of-type{
+    grid-column:1 / -1;
+}
+
+/* 登録ボタン */
+#productForm button{
+    grid-column:1 / -1;
+    justify-self:start;
+    min-width:220px;
+}
+
+/* ---------- 商品一覧 ---------- */
+
+table{
+    margin-top:15px;
+}
+
+table td,
+table th{
+    text-align:center;
+    vertical-align:middle;
+}
+
+table td:first-child{
+    font-family:monospace;
+    font-size:13px;
+}
+
+/* ---------- ボタン ---------- */
+
+.action-buttons{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+
+.action-buttons button{
+    min-width:70px;
+}
+
+/* ---------- 在庫表示 ---------- */
+
+.stock-low{
+    color:var(--danger);
+    font-weight:bold;
+}
+
+.stock-normal{
+    color:var(--success);
+    font-weight:bold;
+}
+
+/* ---------- カード ---------- */
+
+.card{
+    margin-bottom:30px;
+}
+
+/* ---------- 商品画像（将来実装） ---------- */
+
+.product-image{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:10px;
+
+    object-fit:cover;
+
+    background:#eee;
+
+}
+
+/* ---------- 商品検索（将来実装） ---------- */
+
+.search-area{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.search-area input{
+
+    margin-bottom:0;
+
+}
+
+/* ---------- レスポンシブ ---------- */
+
+@media (max-width:900px){
+
+    #productForm{
+
+        grid-template-columns:1fr;
+
+    }
+
+    #productForm label:last-of-type{
+
+        grid-column:auto;
+
+    }
+
+    #productForm button{
+
+        grid-column:auto;
+
+        width:100%;
+
+    }
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+
+    }
+
+}
