@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>売上管理 | ZAIRA</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sales.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div>
+
+        <h1 class="logo">ZAIRA</h1>
+
+        <p class="tagline">
+
+            あなたの会社に、もう一人。
+
+        </p>
+
+    </div>
+
+    <nav>
+
+        <a href="../dashboard.html">ダッシュボード</a>
+
+        <a href="products.html">商品管理</a>
+
+        <a href="inventory.html">在庫管理</a>
+
+        <a href="sales.html">売上管理</a>
+
+        <a href="accounting.html">会計</a>
+
+        <a href="analytics.html">分析</a>
+
+        <a href="ai.html">ZAIRA AI</a>
+
+    </nav>
+
+</header>
+
+<main class="container">
+
+    <!-- 売上登録 -->
+
+    <div class="card">
+
+        <h2 class="card-title">
+
+            売上登録
+
+        </h2>
+
+        <form id="salesForm">
+
+            <label>
+
+                商品
+
+                <select id="productSelect" required>
+
+                    <option value="">
+
+                        商品を選択してください
+
+                    </option>
+
+                </select>
+
+            </label>
+
+            <label>
+
+                販売数量
+
+                <input
+                    type="number"
+                    id="quantity"
+                    min="1"
+                    required>
+
+            </label>
+
+            <label>
+
+                決済方法
+
+                <select id="payment">
+
+                    <option>現金</option>
+
+                    <option>クレジットカード</option>
+
+                    <option>PayPay</option>
+
+                    <option>楽天ペイ</option>
+
+                    <option>d払い</option>
+
+                    <option>au PAY</option>
+
+                    <option>その他</option>
+
+                </select>
+
+            </label>
+
+            <label>
+
+                販売日
+
+                <input
+                    type="date"
+                    id="saleDate">
+
+            </label>
+
+            <label>
+
+                メモ
+
+                <textarea
+                    id="memo"
+                    rows="3"></textarea>
+
+            </label>
+
+            <button type="submit">
+
+                売上を登録
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- 本日の売上 -->
+
+    <div class="grid grid-3">
+
+        <div class="card summary-card">
+
+            <h3>本日の売上</h3>
+
+            <p id="todaySales">¥0</p>
+
+        </div>
+
+        <div class="card summary-card">
+
+            <h3>販売件数</h3>
+
+            <p id="todayCount">0</p>
+
+        </div>
+
+        <div class="card summary-card">
+
+            <h3>平均単価</h3>
+
+            <p id="averagePrice">¥0</p>
+
+        </div>
+
+    </div>
+
+    <!-- 売上一覧 -->
+
+    <div class="card">
+
+        <h2 class="card-title">
+
+            売上一覧
+
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>日時</th>
+
+                    <th>商品名</th>
+
+                    <th>数量</th>
+
+                    <th>単価</th>
+
+                    <th>売上</th>
+
+                    <th>決済方法</th>
+
+                    <th>操作</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="salesTable">
+
+                <!-- JavaScriptで表示 -->
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+<footer>
+
+    © ZAIRA
+
+</footer>
+
+<script src="../js/app.js"></script>
+
+<script src="../js/sales.js"></script>
+
+</body>
+
+</html>
