@@ -261,3 +261,30 @@ function renderAI(insights){
     });
 
 }
+async function getAIReport(){
+
+    const sales = loadData("sales") || [];
+    const products = loadData("products") || [];
+    const expenses = loadData("expenses") || [];
+
+    const res = await fetch("http://localhost:3000/api/ai", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            sales,
+            products,
+            expenses
+        })
+
+    });
+
+    const data = await res.json();
+
+    return data.result;
+
+}
