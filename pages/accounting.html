@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>会計管理 | ZAIRA</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/accounting.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div>
+
+        <h1 class="logo">ZAIRA</h1>
+
+        <p class="tagline">
+
+            あなたの会社に、もう一人。
+
+        </p>
+
+    </div>
+
+    <nav>
+
+        <a href="../dashboard.html">ダッシュボード</a>
+
+        <a href="products.html">商品管理</a>
+
+        <a href="inventory.html">在庫管理</a>
+
+        <a href="sales.html">売上管理</a>
+
+        <a href="accounting.html">会計管理</a>
+
+        <a href="analytics.html">分析</a>
+
+        <a href="ai.html">ZAIRA AI</a>
+
+    </nav>
+
+</header>
+
+<main class="container">
+
+    <!-- サマリー -->
+
+    <div class="grid grid-4">
+
+        <div class="card summary-card">
+
+            <h3>総売上</h3>
+
+            <p id="totalSales">¥0</p>
+
+        </div>
+
+        <div class="card summary-card">
+
+            <h3>総利益</h3>
+
+            <p id="totalProfit">¥0</p>
+
+        </div>
+
+        <div class="card summary-card">
+
+            <h3>総経費</h3>
+
+            <p id="totalExpense">¥0</p>
+
+        </div>
+
+        <div class="card summary-card">
+
+            <h3>純利益</h3>
+
+            <p id="netProfit">¥0</p>
+
+        </div>
+
+    </div>
+
+    <!-- 経費入力 -->
+
+    <div class="card">
+
+        <h2 class="card-title">
+
+            経費登録
+
+        </h2>
+
+        <form id="expenseForm">
+
+            <label>
+
+                日付
+
+                <input
+                    type="date"
+                    id="expenseDate"
+                    required>
+
+            </label>
+
+            <label>
+
+                経費項目
+
+                <input
+                    type="text"
+                    id="expenseName"
+                    placeholder="例：仕入れ・家賃・通信費"
+                    required>
+
+            </label>
+
+            <label>
+
+                金額
+
+                <input
+                    type="number"
+                    id="expenseAmount"
+                    required>
+
+            </label>
+
+            <label>
+
+                支払方法
+
+                <select id="expensePayment">
+
+                    <option>現金</option>
+                    <option>銀行振込</option>
+                    <option>クレジットカード</option>
+                    <option>PayPay</option>
+                    <option>その他</option>
+
+                </select>
+
+            </label>
+
+            <label>
+
+                メモ
+
+                <textarea
+                    id="expenseMemo"
+                    rows="3"></textarea>
+
+            </label>
+
+            <button type="submit">
+
+                経費を登録
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- 経費一覧 -->
+
+    <div class="card">
+
+        <h2 class="card-title">
+
+            経費一覧
+
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>日付</th>
+
+                    <th>項目</th>
+
+                    <th>金額</th>
+
+                    <th>支払方法</th>
+
+                    <th>メモ</th>
+
+                    <th>操作</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="expenseTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- 月次サマリー -->
+
+    <div class="card">
+
+        <h2 class="card-title">
+
+            月次経営サマリー
+
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>年月</th>
+
+                    <th>売上</th>
+
+                    <th>利益</th>
+
+                    <th>経費</th>
+
+                    <th>純利益</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="monthlyTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+<footer>
+
+    © ZAIRA
+
+</footer>
+
+<script src="../js/app.js"></script>
+<script src="../js/accounting.js"></script>
+
+</body>
+
+</html>
