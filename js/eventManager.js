@@ -74,3 +74,25 @@ function triggerAI(eventName, payload){
     }
 
 }
+function emit(eventName, payload = null){
+
+    console.log(`[EVENT] ${eventName}`, payload);
+
+    /* 既存リスナー処理 */
+    if(eventListeners[eventName]){
+
+        eventListeners[eventName].forEach(fn => fn(payload));
+
+    }
+
+    /* 🔥 追加：ログ保存 */
+    if(typeof logEvent === "function"){
+
+        logEvent(eventName, payload);
+
+    }
+
+    /* AIトリガー */
+    triggerAI(eventName, payload);
+
+}
