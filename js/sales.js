@@ -1,38 +1,11 @@
-/* ==========================================
-   ZAIRA
-   売上管理
-========================================== */
-
 "use strict";
 
-/* ==========================================
-   データ
-========================================== */
-
-let products = loadData("products") || [];
-let sales = loadData("sales") || [];
-
-/* ==========================================
-   DOM
-========================================== */
+let products = getProducts();
+let sales = getSales();
 
 const salesForm = document.getElementById("salesForm");
-const productSelect = document.getElementById("productSelect");
-const salesTable = document.getElementById("salesTable");
-
-const todaySales = document.getElementById("todaySales");
-const todayCount = document.getElementById("todayCount");
-const averagePrice = document.getElementById("averagePrice");
-
-const saleDate = document.getElementById("saleDate");
-
-/* ==========================================
-   初期化
-========================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    saleDate.valueAsDate = new Date();
 
     loadProducts();
 
@@ -42,227 +15,117 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-/* ==========================================
-   商品読込
-========================================== */
-
 function loadProducts(){
 
-    productSelect.innerHTML =
-        '<option value="">商品を選択してください</option>';
+    const select = document.getElementById("productSelect");
 
-    products.forEach(product=>{
+    select.innerHTML = '<option value="">選択</option>';
 
-        productSelect.innerHTML +=
-        `<option value="${product.id}">
-            ${product.name}
-        </option>`;
+    products.forEach(p => {
+
+        select.innerHTML += `
+            <option value="${p.id}">
+                ${p.name}
+            </option>
+        `;
 
     });
 
 }
 
-/* ==========================================
-   売上登録
-========================================== */
-
-salesForm.addEventListener("submit", function(e){
+salesForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
 
-    const id = productSelect.value;
+    const productId = document.getElementById("productSelect").value;
 
-    const quantity = Number(document.getElementById("quantity").value);
+    const qty = Number(document.getElementById("quantity").value);
 
-    const payment = document.getElementById("payment").value;
+    const product = products.find(p => p.id === productId);
 
-    const memo = document.getElementById("memo").value;
+    if(!product) return;
 
-    const product = products.find(p=>p.id===id);
+    if(product.stock < qty){
 
-    if(!product){
-
-        showMessage("商品を選択してください。");
+        showMessage("在庫不足");
 
         return;
 
     }
 
-    if(quantity > product.stock){
-
-        showMessage("在庫数が不足しています。");
-
-        return;
-
-    }
-
-    product.stock -= quantity;
-
-    product.sold = (product.sold || 0) + quantity;
-
-    product.lastSaleDate = saleDate.value;
+    // 在庫更新
+    product.stock -= qty;
+    product.sold = (product.sold || 0) + qty;
 
     const sale = {
 
-        id:createId(),
-
-        date:saleDate.value,
-
-        productId:product.id,
-
-        productName:product.name,
-
-        quantity,
-
-        price:product.price,
-
-        total:product.price * quantity,
-
-        payment,
-
-        memo
+        id: createId(),
+        date: document.getElementById("saleDate").value,
+        productId,
+        productName: product.name,
+        quantity: qty,
+        price: product.price,
+        total: product.price * qty,
+        payment: document.getElementById("payment").value
 
     };
 
     sales.push(sale);
 
-    saveData("products",products);
-
-    saveData("sales",sales);
-
-    salesForm.reset();
-
-    saleDate.valueAsDate = new Date();
+    saveProducts(products);
+    saveSales(sales);
 
     renderSales();
-
     updateSummary();
 
-    showMessage("売上を登録しました。");
+    showMessage("売上登録完了");
 
 });
 
-/* ==========================================
-   売上一覧
-========================================== */
-
 function renderSales(){
 
-    salesTable.innerHTML = "";
+    const table = document.getElementById("salesTable");
 
-    sales.forEach(sale=>{
+    table.innerHTML = "";
+
+    sales.forEach(s => {
 
         const tr = document.createElement("tr");
 
         tr.innerHTML = `
-
-        <td>${sale.date}</td>
-
-        <td>${sale.productName}</td>
-
-        <td class="quantity">${sale.quantity}</td>
-
-        <td class="money">${yen(sale.price)}</td>
-
-        <td class="money">${yen(sale.total)}</td>
-
-        <td>
-            <span class="payment">
-                ${sale.payment}
-            </span>
-        </td>
-
-        <td class="action-buttons">
-
-            <button
-                onclick="deleteSale('${sale.id}')"
-                class="btn-danger">
-
-                削除
-
-            </button>
-
-        </td>
-
+            <td>${s.date}</td>
+            <td>${s.productName}</td>
+            <td>${s.quantity}</td>
+            <td>${yen(s.price)}</td>
+            <td>${yen(s.total)}</td>
+            <td>${s.payment}</td>
         `;
 
-        salesTable.appendChild(tr);
+        table.appendChild(tr);
 
     });
 
 }
 
-/* ==========================================
-   削除
-========================================== */
-
-function deleteSale(id){
-
-    if(!confirmAction("この売上を削除しますか？")){
-
-        return;
-
-    }
-
-    const sale = sales.find(s=>s.id===id);
-
-    if(sale){
-
-        const product = products.find(p=>p.id===sale.productId);
-
-        if(product){
-
-            product.stock += sale.quantity;
-
-            product.sold -= sale.quantity;
-
-        }
-
-    }
-
-    sales = sales.filter(s=>s.id!==id);
-
-    saveData("sales",sales);
-
-    saveData("products",products);
-
-    renderSales();
-
-    updateSummary();
-
-}
-
-/* ==========================================
-   サマリー
-========================================== */
-
 function updateSummary(){
 
-    const today = new Date().toLocaleDateString("sv-SE");
+    const today = new Date().toISOString().slice(0,10);
 
     let total = 0;
-
     let count = 0;
 
-    sales.forEach(sale=>{
+    sales.forEach(s => {
 
-        if(sale.date===today){
+        if(s.date === today){
 
-            total += sale.total;
-
+            total += s.total;
             count++;
 
         }
 
     });
 
-    todaySales.textContent = yen(total);
-
-    todayCount.textContent = count;
-
-    averagePrice.textContent =
-        count===0
-        ? yen(0)
-        : yen(Math.round(total/count));
+    document.getElementById("todaySales").textContent = yen(total);
+    document.getElementById("todayCount").textContent = count;
 
 }
