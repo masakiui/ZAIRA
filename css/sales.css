@@ -1,0 +1,268 @@
+/* ==========================================
+   ZAIRA
+   売上管理専用CSS
+========================================== */
+
+/* ---------- 売上登録フォーム ---------- */
+
+#salesForm{
+
+    display:grid;
+
+    grid-template-columns:repeat(2, 1fr);
+
+    gap:20px;
+
+}
+
+#salesForm label{
+
+    display:flex;
+
+    flex-direction:column;
+
+    font-weight:600;
+
+    color:var(--text);
+
+}
+
+#salesForm textarea{
+
+    resize:vertical;
+
+    min-height:90px;
+
+}
+
+/* メモは横幅いっぱい */
+
+#salesForm label:last-of-type{
+
+    grid-column:1 / -1;
+
+}
+
+/* 登録ボタン */
+
+#salesForm button{
+
+    grid-column:1 / -1;
+
+    justify-self:start;
+
+    min-width:220px;
+
+}
+
+/* ---------- サマリーカード ---------- */
+
+.summary-card{
+
+    text-align:center;
+
+    transition:.25s;
+
+}
+
+.summary-card:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.summary-card h3{
+
+    font-size:16px;
+
+    color:var(--sub-text);
+
+    margin-bottom:10px;
+
+}
+
+.summary-card p{
+
+    font-size:32px;
+
+    font-weight:bold;
+
+}
+
+/* ---------- テーブル ---------- */
+
+table{
+
+    margin-top:20px;
+
+}
+
+table th{
+
+    white-space:nowrap;
+
+}
+
+table td{
+
+    text-align:center;
+
+    vertical-align:middle;
+
+}
+
+/* 金額 */
+
+.money{
+
+    font-weight:bold;
+
+    color:var(--main);
+
+}
+
+/* 数量 */
+
+.quantity{
+
+    font-weight:bold;
+
+}
+
+/* ---------- 決済方法 ---------- */
+
+.payment{
+
+    display:inline-block;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    background:#eef3ff;
+
+    color:var(--main);
+
+}
+
+/* 決済方法ごとの色（将来利用） */
+
+.payment.cash{
+
+    background:#f3f4f6;
+
+    color:#333;
+
+}
+
+.payment.card{
+
+    background:#e8f5ff;
+
+    color:#2563eb;
+
+}
+
+.payment.paypay{
+
+    background:#ffe5e5;
+
+    color:#e60033;
+
+}
+
+.payment.rakuten{
+
+    background:#fff0f0;
+
+    color:#bf0000;
+
+}
+
+/* ---------- 操作ボタン ---------- */
+
+.action-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:8px;
+
+}
+
+.action-buttons button{
+
+    min-width:70px;
+
+}
+
+/* ---------- 今日の売上強調 ---------- */
+
+.today-highlight{
+
+    color:var(--success);
+
+    font-size:36px;
+
+    font-weight:bold;
+
+}
+
+/* ---------- 売上0件 ---------- */
+
+.empty-message{
+
+    text-align:center;
+
+    color:#999;
+
+    padding:30px;
+
+}
+
+/* ---------- レスポンシブ ---------- */
+
+@media (max-width:900px){
+
+    #salesForm{
+
+        grid-template-columns:1fr;
+
+    }
+
+    #salesForm label:last-of-type{
+
+        grid-column:auto;
+
+    }
+
+    #salesForm button{
+
+        grid-column:auto;
+
+        width:100%;
+
+    }
+
+    .summary-card p{
+
+        font-size:26px;
+
+    }
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+
+    }
+
+}
